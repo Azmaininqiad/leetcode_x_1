@@ -269,7 +269,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   if (!visible) return <></>
 
   return (
-    <Card className="mb-2 ">
+    <Card className="mt-2">
       <div className="flex gap-2 items-center justify-between h-20 rounded-t-lg p-4">
         <div className="flex gap-2 items-center justify-start">
           <div className="bg-white rounded-full p-2">
@@ -559,7 +559,7 @@ const ContentPage: React.FC = () => {
       className="dark z-50"
       style={{
         position: 'fixed',
-        bottom: '30px',
+        top: '30px',
         right: '30px',
       }}
     >
@@ -624,7 +624,7 @@ const ContentPage: React.FC = () => {
         )
       ) : (
         <ChatBox
-          visible={chatboxExpanded}
+          visible={true}
           context={{ problemStatement }}
           model={modal}
           apikey={apiKey}
@@ -632,14 +632,13 @@ const ContentPage: React.FC = () => {
           selectedModel={selectedModel}
         />
       )}
-      <div className="flex justify-end">
-        <Button
-          size={'icon'}
-          onClick={() => setChatboxExpanded(!chatboxExpanded)}
-        >
-          <Bot />
-        </Button>
-      </div>
+      <Button
+        size={'icon'}
+        onClick={() => setChatboxExpanded(!chatboxExpanded)}
+        style={{ position: 'fixed', top: '10px', right: '10px' }}
+      >
+        <Bot />
+      </Button>
     </div>
   )
 }

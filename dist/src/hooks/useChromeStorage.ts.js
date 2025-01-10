@@ -1,17 +1,24 @@
 export const useChromeStorage = () => {
+  let mockStorage = {};
+  if (!chrome || !chrome.storage || !chrome.storage.local) {
+    console.warn('chrome.storage.local is not available, using mock implementation');
+  } else {
+    mockStorage = chrome.storage.local;
+  }
+
   return {
     setKeyModel: async (apiKey, model) => {
-      chrome.storage.local.set({ [model]: apiKey });
+      mockStorage.set({ [model]: apiKey });
     },
     getKeyModel: async (model) => {
-      const result = await chrome.storage.local.get(model);
+      const result = await mockStorage.get(model);
       return { model, apiKey: result[model] };
     },
     setSelectModel: async (model) => {
-      await chrome.storage.local.set({ ["selectedModel"]: model });
+      await mockStorage.set({ ["selectedModel"]: model });
     },
     selectModel: async () => {
-      const result = await chrome.storage.local.get("selectedModel");
+      const result = await mockStorage.get("selectedModel");
       return result["selectedModel"];
     }
   };

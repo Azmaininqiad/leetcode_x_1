@@ -1,22 +1,32 @@
 import { ValidModel } from '@/constants/valid_modals'
 
 export const useChromeStorage = () => {
+  let mockStorage: any = {};
+
+  // Check if chrome.storage.local is available
+  if (!chrome || !chrome.storage || !chrome.storage.local) {
+    console.warn('chrome.storage.local is not available, using mock implementation');
+    mockStorage = {};
+  } else {
+    mockStorage = chrome.storage.local;
+  }
+
   return {
     setKeyModel: async (apiKey: string, model: ValidModel) => {
-      chrome.storage.local.set({ [model]: apiKey })
+      mockStorage.set({ [model]: apiKey })
     },
 
     getKeyModel: async (model: ValidModel) => {
-      const result = await chrome.storage.local.get(model)
+      const result = await mockStorage.get(model)
       return { model: model, apiKey: result[model] }
     },
 
     setSelectModel: async (model: ValidModel) => {
-      await chrome.storage.local.set({ ['selectedModel']: model })
+      await mockStorage.set({ ['selectedModel']: model })
     },
 
     selectModel: async () => {
-      const result = await chrome.storage.local.get('selectedModel')
+      const result = await mockStorage.get('selectedModel')
       return result['selectedModel'] as ValidModel
     },
   }

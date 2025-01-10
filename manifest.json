@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "LeetCode Whisper",
-  "version": "1.0.0",
-  "description": "Chrome extension providing AI-driven hints on LeetCode problems. Get step-by-step help to boost problem-solving skills effectively.",
-  "permissions": ["storage"],
+  "name": "Open in AWS",
+  "version": "1.0",
+  "description": "open in aws",
+  "permissions": ["tabs", "activeTab"],
   "action": {
     "default_popup": "index.html"
   },
@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "js": ["src/content.tsx"],
-      "matches": ["https://leetcode.com/problems/*"]
+      "matches": ["https://aws.amazon.com/*"]
     }
   ],
   "background": {
